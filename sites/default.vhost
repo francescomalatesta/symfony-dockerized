@@ -1,13 +1,13 @@
 server {
   server_name default;
-  root        /var/www/default/public;
-  index       index.php;
+  root        /var/www/default/web;
+  index       app.php;
 
   client_max_body_size 100M;
   fastcgi_read_timeout 1800;
 
   location / {
-    try_files $uri $uri/ /index.php?$query_string;
+    try_files $uri $uri/ /app.php?$query_string;
   }
 
   location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
@@ -19,7 +19,7 @@ server {
   location ~ \.php$ {
     try_files     $uri =404;
     include       fastcgi_params;
-    fastcgi_index index.php;
+    fastcgi_index app.php;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_pass  unix:/var/run/php5-fpm.sock;
     # fastcgi_pass  unix:/var/run/hhvm/hhvm.sock;
